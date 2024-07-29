@@ -149,7 +149,7 @@ const App = () => {
 
             <Search value={filterResult} onChange={handleFilterResultChange} />
 
-            <h2>Add a New Person</h2>
+            <h2>Add a new Person</h2>
 
             <PersonForm
                 addPerson={addPerson}
