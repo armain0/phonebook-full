@@ -65,9 +65,9 @@ const App = () => {
             if (confirmation) {
                 personService
                     .updateOne(
-                        persons.find(
-                            (person) => person.name === personObject.name
-                        ).id,
+                        persons.find((person) => {
+                            return person.name === personObject.name
+                        }).id,
                         personObject
                     )
                     .then((newPerson) => {
@@ -103,12 +103,10 @@ const App = () => {
     const removePerson = (id) => {
         personService
             .deleteOne(id)
-            .then((removedPerson) => {
-                setPersons(
-                    persons.filter(
-                        (person) => person.name !== removedPerson.name
-                    )
-                )
+            .then(() => {
+                personService.getAll().then((allPersons) => {
+                    setPersons(allPersons)
+                })
             })
             .then(() => {
                 setSuccessMsg(`Removed person`)
@@ -140,6 +138,7 @@ const App = () => {
         filterResult === ''
             ? persons
             : persons.filter((elem) => elem.name.includes(filterResult))
+
     return (
         <div>
             <h2>Phonebook </h2>
